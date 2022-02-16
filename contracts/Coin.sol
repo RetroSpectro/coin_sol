@@ -35,10 +35,10 @@ contract Coin {
 
 
     function play(bool coinState) public payable returns(bool){
-        if(pool.getBalance()!=0&&shake()==coinState) {
-            require(pool.getBalance()/50>msg.value,"Your bet is too big!");
+       require(pool.getBalance()>0,"Pool is empty!");
+       require(pool.getBalance()/50>msg.value,"Your bet is too big!");
+        if(shake()==coinState) {
             pool.pay(msg.value,payable(msg.sender));
-
             players.push(Info(payable(msg.sender),block.timestamp,msg.value*2,true));
             return true;
         }
@@ -57,5 +57,8 @@ contract Coin {
     function getPlayersCount() public view returns(uint count) {
         return players.length;
     }
-
+    
+    function payPoolContract() public payable {
+         payable(address(pool)).transfer(msg.value);
+    }
 }
