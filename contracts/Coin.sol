@@ -5,22 +5,19 @@ pragma solidity >=0.7.0 <0.9.0;
 import "./Pool.sol";
 
 contract Coin {
+    
 
-    struct Player {
+    struct Info {
+        address payable player;
         uint256 time;
-        address payable player_address;
         uint256 tax;
         bool winner_state;
     }
+    Info []  public players;
 
-    Player[] public players;
 
-    Pool pool;
 
-    constructor(){
-    pool = new Pool();
-    }
-
+    Pool   pool = new Pool();
 
     function random() public view returns (uint) {
         return  uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % 100;
@@ -38,21 +35,23 @@ contract Coin {
 
 
     function play(bool coinState) public payable returns(bool){
-        require(pool.getBalance()/50>msg.value,"Your bet is too big!");
-        
-
         if(pool.getBalance()!=0&&shake()==coinState) {
+            require(pool.getBalance()/50>msg.value,"Your bet is too big!");
             pool.pay(msg.value,payable(msg.sender));
-            players.push(Player(block.timestamp,payable(msg.sender),msg.value*2,true));
+
+            players.push(Info(payable(msg.sender),block.timestamp,msg.value*2,true));
             return true;
         }
         else
         {
-            pool.pay(msg.value,payable(address(pool)));
-            players.push(Player(block.timestamp,payable(msg.sender),msg.value*2,true));
+            payable(address(pool)).transfer(msg.value);
+            players.push(Info(payable(msg.sender),block.timestamp,msg.value,false));
             return false;
         } 
     }
 
-  
+      function getBalance() public view returns(uint256){
+        return pool.getBalance();
+    }
+
 }
