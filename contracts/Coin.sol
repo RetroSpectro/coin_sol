@@ -53,5 +53,9 @@ contract Coin {
       function getBalance() public view returns(uint256){
         return pool.getBalance();
     }
+    
+    function getPlayersCount() public view returns(uint count) {
+        return players.length;
+    }
 
 }
