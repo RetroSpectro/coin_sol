@@ -37,6 +37,7 @@ contract Coin {
     function play(bool coinState) public payable returns(bool){
        require(pool.getBalance()>0,"Pool is empty!");
        require(pool.getBalance()/50>msg.value,"Your bet is too big!");
+       require(msg.value>0,"Your bet should be more than 0!");
         if(shake()==coinState) {
             pool.pay(msg.value,payable(msg.sender));
             players.push(Info(payable(msg.sender),block.timestamp,msg.value*2,true));
@@ -59,6 +60,7 @@ contract Coin {
     }
     
     function payPoolContract() public payable {
+        require(msg.value>0,"Transfer bet should be more than 0!");
          payable(address(pool)).transfer(msg.value);
     }
 }
