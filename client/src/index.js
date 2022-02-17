@@ -1,5 +1,3 @@
-let Web3 = require('web3')
-
 const getWeb3 = () => {
     return new Promise((resolve, reject) => {
         window.addEventListener("load", async() => {
