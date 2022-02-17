@@ -1,0 +1,23 @@
+{
+  "name": "coin_sol",
+  "version": "1.0.0",
+  "description": "First web3 app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RetroSpectro/coin_sol.git"
+  },
+  "author": "mikesb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RetroSpectro/coin_sol/issues"
+  },
+  "homepage": "https://github.com/RetroSpectro/coin_sol#readme",
+  "dependencies": {
+    "truffle-hdwallet-provider": "^1.0.17",
+    "web3": "^1.7.0"
+  }
+}

@@ -3,10 +3,9 @@
 pragma solidity >=0.5.0 <0.9.0;
 
 
-
 contract Pool {
 
-    receive() payable external{
+    receive() external payable {
 
     }
 
